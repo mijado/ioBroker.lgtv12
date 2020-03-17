@@ -17,8 +17,8 @@
 Steuerung LG SmartTV 2012 über [ioBroker](https://www.iobroker.net)
 
 State:
-		3D
-		Input Source
+        3D
+        Input Source
         Mute
         Current Volume
         Current Channel
@@ -28,7 +28,7 @@ Info:
         App List
 Remote:
         Netflix ON/OFF
-		Change Channel
+        Change Channel
         Toggle 3D mode
         Toggle Back
         Switch TV OFF
