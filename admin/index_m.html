@@ -1,0 +1,123 @@
+<html>
+
+<head>
+
+    <!-- Load ioBroker scripts and styles-->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+    <!-- Load our own files -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="words.js"></script>
+
+    <script type="text/javascript">
+        // This will be called by the admin adapter when the settings page loads
+        function load(settings, onChange) {
+            // example: select elements with id=key and class=value and insert value
+            if (!settings) return;
+            $('.value').each(function () {
+                var $key = $(this);
+                var id = $key.attr('id');
+                if ($key.attr('type') === 'checkbox') {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.prop('checked', settings[id])
+                        .on('change', () => onChange())
+                        ;
+                } else {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.val(settings[id])
+                        .on('change', () => onChange())
+                        .on('keyup', () => onChange())
+                        ;
+                }
+            });
+            onChange(false);
+            // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+            if (M) M.updateTextFields();
+ 		
+			socket.emit('getState', 'system.adapter.' + adapter + '.' + instance + '.alive', function (err, state) {
+				active = (state && state.val);
+			});
+		
+			var $requestpairingkey = $('#requestpairingkey');
+			$requestpairingkey.click(function () 
+			{
+				if (!active) 
+				{
+					showMessage('Zuerst den Adapter aktivieren!', 'Information', 'info');                
+				} 
+				else
+				{
+					sendTo('lgtv2012.' + instance, 'RequestPairingKey_Msg', 5000, function (result)	{});
+					showMessage('Den Verbidnungsschlüssen am Fernseher ablesen!', 'Information', 'info');
+				}
+				});
+   
+			onChange(false);
+		}
+		
+
+        // This will be called by the admin adapter when the user presses the save button
+        function save(callback) {
+            // example: select elements with class=value and build settings object
+            var obj = {};
+            $('.value').each(function () {
+                var $this = $(this);
+                if ($this.attr('type') === 'checkbox') {
+                    obj[$this.attr('id')] = $this.prop('checked');
+                } else {
+                    obj[$this.attr('id')] = $this.val();
+                }
+            });
+            callback(obj);
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="m adapter-container">
+        <div class="row">
+            <div class="col s12 m4 l2">
+                <img src="lgtv2012.png" class="logo">
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col s12 m8 l1">
+                <input class="value" id="ip" value=""/>
+                <label for="ip" class="translate" for="ip">IP Adresse</label>
+            </div>
+            <div class="col s12 m4 l1">
+                <input class="value" id="port" type="number" value="8080"/>
+                <label for="timeout" class="translate" for="timeout">Tcp Port</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m8 l1">
+                <input class="value" id="pairingkey" value=""/>
+                <label for="timeout" class="translate" for="timeout">Verbindungsschlüssel</label>
+            </div>
+            <div class="col s12 m4 l1">
+                <input class="value" id="interval" type="number" min="10000" value="15000"/>
+                <label for="interval" class="translate" for="interval">Intervall</label>
+            </div>
+        </div>
+		<div class="row">
+			<div class="input-field col s6">
+				<a class="waves-effect waves-light btn" id="requestpairingkey"><span class="translate">Hole Verbindungsschlüssel</span></a>
+			</div>			
+		</div>
+    </div>
+
+</body>
+
+</html>

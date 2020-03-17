@@ -1,0 +1,573 @@
+{
+    "common": {
+        "name": "lgtv2012",
+        "version": "0.0.2",
+        "news": {
+            "0.0.1": {
+                "de": "Erstveröffentlichung"
+            }
+        },
+        "title": "LG TV 2012",
+        "titleLang": {
+            "de": "LG TV 2012"
+        },
+        "desc": {
+            "de": "Steuerung LG SmartTV Modelle 2012"
+        },
+        "authors": [
+            "Michael Jantschar"
+        ],
+        "keywords": [
+            "ioBroker",
+            "LG TV",
+            "Smart Home",
+            "home automation"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "lgtv2012.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv2012/master/admin/lgtv2012.png",
+        "readme": "https://github.com/mijado/ioBroker.lgtv2012/blob/master/README.md",
+        "loglevel": "info",
+		"messagebox": true,		
+        "mode": "daemon",
+        "type": "multimedia",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "materialize": true,
+		"subscribe": "messagebox",		
+        "dependencies": [
+            {
+                "js-controller": ">=1.4.2"
+            }
+        ]
+    },
+    "native": {
+        "ip": "",
+        "port": "8080",
+		"pairingkey": "",
+		"interval": "15000"
+    },
+    "objects": [],
+    "instanceObjects": [
+   {
+       "_id": "connected",
+       "type": "state",
+       "common": {
+         "name": "connected",
+         "type": "boolean",
+         "role": "indicator.connected",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+	{
+       "_id": "states.launch",
+       "type": "state",
+       "common": {
+         "name": "Launch",
+         "role": "button",
+		 "type": "boolean",
+         "read": false,
+         "write": true
+     },
+      "native": {}
+    },
+	{
+       "_id": "states.3D",
+       "type": "state",
+       "common": {
+         "name": "3D",
+         "type": "boolean",
+         "role": "value",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+	{
+		"_id": "states.inputSource",
+	    "type": "state",
+		"common": {
+			"name": "Input Source",
+			"role": "text",
+			"type": "array",
+			"states": [
+				"HDMI1",
+				"HDMI2",
+				"HDMI3",
+				"USB",
+				"Kabel",
+				"AV1",
+				"AV2",
+				"Komponente"
+			],
+		"read": true,
+		"write": true
+	},
+	  "native": {}	
+	},	
+    {
+       "_id": "states.mute",
+       "type": "state",
+       "common": {
+         "name": "mute",
+         "type": "boolean",
+         "role": "value",
+         "read": true,
+         "write": false
+    },	
+      "native": {}
+    },
+    {
+       "_id": "states.volume",
+       "type": "state",
+       "common": {
+         "name": "Current Volume",
+         "type": "number",
+         "role": "value",
+		 "min": 0,
+		 "max": 100,		 
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+    {
+       "_id": "states.channel",
+       "type": "state",
+       "common": {
+         "name": "Current Channel",
+         "type": "string",
+         "role": "text",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+    {
+       "_id": "states.app",
+       "type": "state",
+       "common": {
+         "name": "Current App",
+         "type": "string",
+         "role": "text",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },	
+    {
+       "_id": "info.channellist",
+       "type": "state",
+       "common": {
+         "name": "Channel List",
+         "type": "string",
+         "role": "text",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+    {
+       "_id": "info.applist",
+       "type": "state",
+       "common": {
+         "name": "App List",
+         "type": "string",
+         "role": "text",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+    {
+      "_id": "remote.Netflix",
+      "type": "state",
+      "common": {
+        "name": "Netflix ON/OFF",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.changeChannel",
+      "type": "state",
+      "common": {
+        "name": "Change Channel",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },		
+    {
+      "_id": "remote.3Dmode",
+      "type": "state",
+      "common": {
+        "name": "Toggle 3D mode",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.back",
+      "type": "state",
+      "common": {
+        "name": "Toggle back",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.turnOff",
+      "type": "state",
+      "common": {
+        "name": "Switch TV OFF",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.mute",
+      "type": "state",
+      "common": {
+        "name": "Mute ON/OFF",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.volumeUp",
+      "type": "state",
+      "common": {
+        "name": "Volume UP",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.volumeDown",
+      "type": "state",
+      "common": {
+        "name": "Volume DOWN",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.channelUp",
+      "type": "state",
+      "common": {
+        "name": "Channel UP",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.channelDown",
+      "type": "state",
+      "common": {
+        "name": "Channel DOWN",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.input",
+      "type": "state",
+      "common": {
+        "name": "Switch input source",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number0",
+      "type": "state",
+      "common": {
+        "name": "Number 0",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number1",
+      "type": "state",
+      "common": {
+        "name": "Number 1",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number2",
+      "type": "state",
+      "common": {
+        "name": "Number 2",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number3",
+      "type": "state",
+      "common": {
+        "name": "Number 3",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number4",
+      "type": "state",
+      "common": {
+        "name": "Number 4",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number5",
+      "type": "state",
+      "common": {
+        "name": "Number 5",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number6",
+      "type": "state",
+      "common": {
+        "name": "Number 6",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number7",
+      "type": "state",
+      "common": {
+        "name": "Number 7",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number8",
+      "type": "state",
+      "common": {
+        "name": "Number 8",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.number9",
+      "type": "state",
+      "common": {
+        "name": "Number 9",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.ok",
+      "type": "state",
+      "common": {
+        "name": "OK",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.up",
+      "type": "state",
+      "common": {
+        "name": "Up",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.down",
+      "type": "state",
+      "common": {
+        "name": "Down",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.left",
+      "type": "state",
+      "common": {
+        "name": "Left",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.right",
+      "type": "state",
+      "common": {
+        "name": "Right",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.play",
+      "type": "state",
+      "common": {
+        "name": "Play",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.pause",
+      "type": "state",
+      "common": {
+        "name": "Pause",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.stop",
+      "type": "state",
+      "common": {
+        "name": "Stop",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.record",
+      "type": "state",
+      "common": {
+        "name": "Record",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.epg",
+      "type": "state",
+      "common": {
+        "name": "EPG",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
+      "_id": "remote.myApps",
+      "type": "state",
+      "common": {
+        "name": "My Apps",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    }	
+  ]
+}
