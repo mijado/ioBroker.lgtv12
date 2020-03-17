@@ -19,7 +19,9 @@
     "url": "https://github.com/mijado/ioBroker.lgtv2012"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.2.1"
+    "@iobroker/adapter-core": "^2.2.1",
+	"xml2js": "^0.4.23",
+	"xmldom": "^0.3.0"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.1.0",
