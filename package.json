@@ -1,7 +1,7 @@
 {
-  "name": "iobroker.lgtv2012",
+  "name": "iobroker.lgtv12",
   "version": "0.0.2",
-  "description": "lgtv2012",
+  "description": "lgtv12",
   "author": {
     "name": "mijado",
     "email": "mjantschar@web.de"
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mijado/ioBroker.lgtv2012"
+    "url": "https://github.com/mijado/ioBroker.lgtv12"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.2.1",
