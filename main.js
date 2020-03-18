@@ -371,7 +371,7 @@ function RequestCommand(sessionID, commandKey)
 function startAdapter(options) {
     options = options || {};
     Object.assign(options,{
-        name:  "lgtv2012",
+        name:  "lgtv12",
         stateChange:  function (id, state) {
             if (id && state && !state.ack)
 			{
