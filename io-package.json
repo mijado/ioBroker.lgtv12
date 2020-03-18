@@ -1,18 +1,18 @@
 {
     "common": {
-        "name": "lgtv2012",
+        "name": "lgtv12",
         "version": "0.0.2",
         "news": {
             "0.0.1": {
                 "de": "Erstveröffentlichung"
             }
         },
-        "title": "LG TV 2012",
+        "title": "LG TV 12",
         "titleLang": {
-            "de": "LG TV 2012"
+            "de": "LG TV 12"
         },
         "desc": {
-            "de": "Steuerung LG SmartTV Modelle 2012"
+            "de": "Steuerung LG SmartTV Modelle 12"
         },
         "authors": [
             "Michael Jantschar"
