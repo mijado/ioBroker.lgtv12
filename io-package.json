@@ -29,7 +29,7 @@
         "icon": "lgtv2012.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv2012/master/admin/lgtv2012.png",
-        "readme": "https://github.com/mijado/ioBroker.lgtv2012/blob/master/README.md",
+        "readme": "https://github.com/mijado/ioBroker.lgtv12/blob/master/README.md",
         "loglevel": "info",
 		"messagebox": true,		
         "mode": "daemon",
@@ -97,14 +97,8 @@
 			"role": "text",
 			"type": "array",
 			"states": [
-				"HDMI1",
-				"HDMI2",
-				"HDMI3",
-				"USB",
-				"Kabel",
-				"AV1",
-				"AV2",
-				"Komponente"
+				"cable",
+				"terrestrial"
 			],
 		"read": true,
 		"write": true
