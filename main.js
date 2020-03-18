@@ -407,12 +407,18 @@ function startAdapter(options) {
 										{
 											adapter.log.debug('RequestState cur_channel: ' + xmldata);
 											xmlDoc = parser.parseFromString(xmldata,"text/xml");
-											var inputSource = xmlDoc.getElementsByTagName("inputSourceName")[0].childNodes[0].nodeValue
-											adapter.setStateChanged('states.inputSource', inputSource, true);
-											if(inputSource == 'Kabel') {
-												adapter.setStateChanged('states.channel', xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue, true);
-											}											
-										}
+											var chtype = xmlDoc.getElementsByTagName("chtype")[0].childNodes[0].nodeValue
+											adapter.setStateChanged('states.inputSource', chtype, true);
+											switch (chtype) {
+												case 'cable':
+													adapter.setStateChanged('states.channel', xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue, true);
+													break;
+												case 'terrestrial':
+													adapter.setStateChanged('states.channel', '', true);
+													break;
+												default:
+													break;
+											}										}
 									});
 										
 									RequestState('is_3d', function (xmldata)
