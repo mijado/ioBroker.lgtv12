@@ -2,8 +2,8 @@
 'use strict';
 
 systemDictionary = {
-    'lgtv2012 adapter settings': {
-        'de': 'Adaptereinstellungen für LG TV 2012'
+    'lgtv12 adapter settings': {
+        'de': 'Adaptereinstellungen für LG TV 12'
     },
     'ip': {
         'de': 'IP Adresse'
