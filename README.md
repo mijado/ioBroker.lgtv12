@@ -12,7 +12,7 @@
 
 **Tests:**: [![Travis-CI](http://img.shields.io/travis/mijado/ioBroker.lgtv12/master.svg)](https://travis-ci.org/mijado/ioBroker.lgtv12)
 
-## lgtv2012 adapter for ioBroker
+## lgtv12 adapter for ioBroker
 
 Steuerung LG SmartTV 12 über [ioBroker](https://www.iobroker.net)
 
