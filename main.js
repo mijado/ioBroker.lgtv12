@@ -15,6 +15,7 @@ var http = require('http');
 var net = require('net');
 
 var DOMParser = require('xmldom').DOMParser;
+var parser = new DOMParser();
 const xml2js = require('xml2js');
 
 let hostUrl, lgtvobj
@@ -22,6 +23,8 @@ var pollTimer = null;
 var loadedApp = '';
 var volume;
 var oneRequest = true
+var Apps = ['']
+var auid = ['']
 var Channels = ['']
 
 if (module && module.parent) {
@@ -174,7 +177,62 @@ function isOnline(callback)
 	req.end();
 }
 
-function getChannelList() {
+function getAppList()
+{
+	adapter.log.debug('Starting GetAppList');
+	adapter.setState('info.applist', '', true);	
+	var xmldata = '';
+	var options = {
+		host:  adapter.config.ip,
+		port:   adapter.config.port,
+		path : '/roap/api/data?target=applist_get&type=1&index=1&number=0',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/atom+xml',
+			'Content-Length': xmldata.length
+			}
+	};
+										
+	var req = http.request(options, function(res) {
+		res.setEncoding('utf8'),
+			res.on('data',function(chunk){
+				xmldata+= chunk;
+			});
+
+			res.on('end',function(){
+				adapter.log.debug('xmldata ' + xmldata.length + ' : ' + xmldata);
+				parser = new DOMParser();
+				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
+				var x = xmlDoc.getElementsByTagName("icon_name");
+				var id = xmlDoc.getElementsByTagName("auid");
+				var n = xmlDoc.getElementsByTagName("name");
+				//Apps = [];
+				for (var i = 0; i < x.length; i++) {
+					if(x[i].childNodes[0].nodeValue.search('addon') < 0) {
+						Apps.push(n[i].childNodes[0].nodeValue);
+						auid.push(id[i].childNodes[0].nodeValue);
+						adapter.log.debug('AppName: '+ Apps[i] + ' auid:'auid[i]);
+					}
+				}
+				adapter.setObjectNotExists('info.applist', {
+				type: 'state',
+				common: {
+					name: 'App List',
+					type: 'string',
+					role: 'state',
+					states: Apps,
+					read: false,
+					write: true
+				},
+					native: {}
+				});
+			});
+	});
+	req.end();
+}	
+
+function getChannelList()
+{
 	adapter.log.info('Starting GetChannelList');
 	var xmldata = '';
 	var options = {
@@ -196,12 +254,12 @@ function getChannelList() {
 
 			res.on('end',function(){
 				adapter.log.debug('getChannelList xmldata ' + xmldata.length + ' : ' + xmldata);
-				var parser = new DOMParser();
+				parser = new DOMParser();
 				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
-				Channels = [];
+				//Channels = [];
 				var x = xmlDoc.getElementsByTagName("chname");
 				for (var i = 0; i < 50; i++) {
-					adapter.log.info(x[i].childNodes[0].nodeValue);
+					adapter.log.debug(x[i].childNodes[0].nodeValue);
 					Channels.push(x[i].childNodes[0].nodeValue);
 				}
 				
@@ -218,7 +276,6 @@ function getChannelList() {
 					native: {}
 				});
 			});
-												
 	});
 	req.end();
 }
@@ -446,11 +503,12 @@ function startAdapter(options) {
 										}
 									});
 
-									//if(oneRequest) {
-										//getAppList();
+									if(oneRequest) {
+										adapter.log.debug('getAppList() and getChannelList');
+										getAppList();
 										getChannelList();
 										oneRequest = false;
-									//}
+									}
 									pollTimer = setInterval(connect, parseInt(adapter.config.interval, 10))
 									break;
 
