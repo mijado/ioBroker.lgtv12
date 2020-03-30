@@ -161,9 +161,9 @@
        "common": {
          "name": "Channel List",
          "type": "string",
-         "role": "text",
-         "read": true,
-         "write": false
+         "role": "state",
+         "read": false,
+         "write": true
      },
       "native": {}
     },
@@ -173,9 +173,9 @@
        "common": {
          "name": "App List",
          "type": "string",
-         "role": "text",
-         "read": true,
-         "write": false
+         "role": "state",
+         "read": false,
+         "write": true
      },
       "native": {}
     },
