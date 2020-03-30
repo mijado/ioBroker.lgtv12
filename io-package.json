@@ -137,9 +137,9 @@
        "common": {
          "name": "Current Channel",
          "type": "string",
-         "role": "text",
-         "read": true,
-         "write": false
+         "role": "state",
+         "read": false,
+         "write": true
      },
       "native": {}
     },
@@ -149,9 +149,9 @@
        "common": {
          "name": "Current App",
          "type": "string",
-         "role": "text",
-         "read": true,
-         "write": false
+         "role": "state",
+         "read": false,
+         "write": true
      },
       "native": {}
     },	
