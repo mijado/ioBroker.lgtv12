@@ -21,6 +21,8 @@ let hostUrl, lgtvobj
 var pollTimer = null;
 var loadedApp = '';
 var volume;
+var oneRequest = true
+var Channels = ['']
 
 if (module && module.parent) {
     module.exports = startAdapter;
@@ -117,44 +119,6 @@ var commands = {
 }
 
 
-function postRequest (device, path, post_data, callback) {
-    var options = {
-        host:  adapter.config.ip,
-        port:   adapter.config.port,
-        path:   path,
-		method: 'POST',
-		headers: {
-          'Content-Type': 'application/atom+xml',
-          'Content-Length': post_data.length
-      }
-    };
-	var post_req = http.request(options, function(res) {
-		var xmldata = '';
-		res.setEncoding('utf8'),
-		res.on('error', function (e) {
-			logger.warn ("lgtv: " + e);
-			if (callback) 
-				callback (device, null);
-		});
-		res.on('data', function(chunk){
-			xmldata += chunk;
-		})
-		res.on('end', function () {
-			adapter.log.info('Response: ' + xmldata);
-			if (callback) 
-				callback (device, xmldata);
-		});
-	});
-
-	// post the data
-	post_req.write(post_data);
-	post_req.end();
-}
-
-
-
-
-
 
 
 function connect()
@@ -198,6 +162,7 @@ function isOnline(callback)
 
 	req.on('error', error => {
 		//adapter.log.error('isOnline error' + error)
+		oneRequest = true;
 		callback(false);
 	});
 
@@ -206,6 +171,55 @@ function isOnline(callback)
 		req.abort();
 	});
 	
+	req.end();
+}
+
+function getChannelList() {
+	adapter.log.info('Starting GetChannelList');
+	var xmldata = '';
+	var options = {
+		host:  adapter.config.ip,
+		port:   adapter.config.port,
+		path : '/roap/api/data?target=channel_list',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/atom+xml',
+			'Content-Length': xmldata.length
+			}
+	};
+										
+	var req = http.request(options, function(res) {
+		res.setEncoding('utf8'),
+			res.on('data',function(chunk){
+				xmldata+= chunk;
+			});
+
+			res.on('end',function(){
+				adapter.log.debug('getChannelList xmldata ' + xmldata.length + ' : ' + xmldata);
+				var parser = new DOMParser();
+				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
+				Channels = [];
+				var x = xmlDoc.getElementsByTagName("chname");
+				for (var i = 0; i < 50; i++) {
+					adapter.log.info(x[i].childNodes[0].nodeValue);
+					Channels.push(x[i].childNodes[0].nodeValue);
+				}
+				
+				adapter.setObjectNotExists('info.channellist', {
+				type: 'state',
+				common: {
+					name: 'Channel List',
+					type: 'string',
+					role: 'state',
+					states: Channels,
+					read: false,
+					write: true
+				},
+					native: {}
+				});
+			});
+												
+	});
 	req.end();
 }
 
@@ -236,7 +250,7 @@ function RequestState(getCommand, callback)
 			})
 			res.on('data', function(xmldata)
 			{
-				adapter.log.debug('RequestState: ' + xmldata);
+				adapter.log.debug('RequestState: ' + getCommand + ':' + xmldata);
 				callback(xmldata);
 			});
 		}
@@ -376,6 +390,7 @@ function startAdapter(options) {
             if (id && state && !state.ack)
 			{
 				id = id.substring(adapter.namespace.length + 1);
+
 				if(typeof commands[id] != "undefined")
 				{
 					adapter.log.debug('Starting state change "' + id + '", value: "' + state.val + '" ip: ' + adapter.config.ip + ' port: ' + adapter.config.port);
@@ -431,17 +446,11 @@ function startAdapter(options) {
 										}
 									});
 
-									RequestState('applist_get&type=1&index=1&number=1024', function (xmldata)
-									{
-										if(xmldata)
-										{
-											adapter.log.debug('RequestState applist: ' + xmldata);
-											xml2js.parseStringPromise(xmldata /*, options */).then(function (result) {
-												adapter.setStateChanged('info.applist', JSON.stringify(result.envelope.data), true);
-											});
-
-										}
-									});
+									//if(oneRequest) {
+										//getAppList();
+										getChannelList();
+										oneRequest = false;
+									//}
 									pollTimer = setInterval(connect, parseInt(adapter.config.interval, 10))
 									break;
 
@@ -488,7 +497,20 @@ function startAdapter(options) {
 							adapter.setState(id, !!state.val, true);
 						} else adapter.log.info('RequestCommand, No Data response after RequestSessionKey!');
 					});
+				} else {
+					if(id == "info.allapps") {
+						var state = state.val
+						RequestSessionKey(adapter.config.pairingkey, function (data) 
+						{
+							if(data) { 
+								adapter.log.info('Starte App ' + AppName[state] + ' ' + auid[state]);
+								RequestCommand(data,"<name>AppExecute</name><auid>" + auid[state] + "</auid><appname>" + AppName[state] + "</appname></command>");
+							}
+
+						});
+					}
 				}
+				
 			}
         },
         unload: function (callback) {
