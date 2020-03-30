@@ -28,7 +28,7 @@
         "main": "main.js",
         "icon": "lgtv2012.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv2012/master/admin/lgtv2012.png",
+        "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv12/master/admin/lgtv2012.png",
         "readme": "https://github.com/mijado/ioBroker.lgtv12/blob/master/README.md",
         "loglevel": "info",
 		"messagebox": true,		
