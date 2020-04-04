@@ -156,30 +156,6 @@
       "native": {}
     },	
     {
-       "_id": "info.channellist",
-       "type": "state",
-       "common": {
-         "name": "Channel List",
-         "type": "string",
-         "role": "state",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    },
-    {
-       "_id": "info.applist",
-       "type": "state",
-       "common": {
-         "name": "App List",
-         "type": "string",
-         "role": "state",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    },
-    {
       "_id": "remote.Netflix",
       "type": "state",
       "common": {
