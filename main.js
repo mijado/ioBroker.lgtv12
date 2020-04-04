@@ -22,7 +22,8 @@ let hostUrl, lgtvobj
 var pollTimer = null;
 var loadedApp = '';
 var volume;
-var oneRequest = true
+var ChannelRequest = true;
+var AppsRequest = true;
 var Apps = ['']
 var auid = ['']
 var Channels = ['']
@@ -165,12 +166,12 @@ function isOnline(callback)
 
 	req.on('error', error => {
 		//adapter.log.error('isOnline error' + error)
-		oneRequest = true;
 		callback(false);
 	});
 
 	req.setTimeout(10000, function() {                                                                                                                              
-		adapter.log.error("Server connection timeout (after 10 second)");                                                                                                                  
+		adapter.log.error("Server connection timeout (after 10 second)");
+		adapter.setStateChanged('connected', false, true);			
 		req.abort();
 	});
 	
@@ -179,7 +180,7 @@ function isOnline(callback)
 
 function getAppList()
 {
-	adapter.log.debug('Starting GetAppList');
+	adapter.log.info('Starting GetAppList');
 	adapter.setState('info.applist', '', true);	
 	var xmldata = '';
 	var options = {
@@ -200,7 +201,7 @@ function getAppList()
 			});
 
 			res.on('end',function(){
-				adapter.log.debug('xmldata ' + xmldata.length + ' : ' + xmldata);
+				adapter.log.debug('getAppList xmldata ' + xmldata.length + ' : ' + xmldata);
 				parser = new DOMParser();
 				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
 				var x = xmlDoc.getElementsByTagName("icon_name");
@@ -211,7 +212,7 @@ function getAppList()
 					if(x[i].childNodes[0].nodeValue.search('addon') < 0) {
 						Apps.push(n[i].childNodes[0].nodeValue);
 						auid.push(id[i].childNodes[0].nodeValue);
-						adapter.log.debug('AppName: '+ Apps[i] + ' auid:'auid[i]);
+						adapter.log.debug('AppName: '+ Apps[i] + ' auid:' + auid[i]);
 					}
 				}
 				adapter.setObjectNotExists('info.applist', {
@@ -226,6 +227,11 @@ function getAppList()
 				},
 					native: {}
 				});
+				adapter.setState('info.applist', {val: Apps, ack: true});
+				adapter.setState('info.applist', {val: Apps[0], ack: true});
+				
+				
+				AppsRequest = false;
 			});
 	});
 	req.end();
@@ -262,7 +268,6 @@ function getChannelList()
 					adapter.log.debug(x[i].childNodes[0].nodeValue);
 					Channels.push(x[i].childNodes[0].nodeValue);
 				}
-				
 				adapter.setObjectNotExists('info.channellist', {
 				type: 'state',
 				common: {
@@ -275,6 +280,8 @@ function getChannelList()
 				},
 					native: {}
 				});
+				adapter.setState('info.channellist', {val: Channels, ack: true});
+				ChannelRequest = false;
 			});
 	});
 	req.end();
@@ -483,7 +490,14 @@ function startAdapter(options) {
 											adapter.setStateChanged('states.inputSource', chtype, true);
 											switch (chtype) {
 												case 'cable':
-													adapter.setStateChanged('states.channel', xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue, true);
+													var Sender = xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue
+													adapter.setStateChanged('states.channel', Sender , true);
+													var index
+													for (index = 0; index < Channels.length; ++index) {
+														if(Channels[index] == Sender) {
+															adapter.setState('info.channellist', {val: Channels[index], ack: true});
+														}
+													}
 													break;
 												case 'terrestrial':
 													adapter.setStateChanged('states.channel', '', true);
@@ -503,11 +517,11 @@ function startAdapter(options) {
 										}
 									});
 
-									if(oneRequest) {
-										adapter.log.debug('getAppList() and getChannelList');
-										getAppList();
-										getChannelList();
-										oneRequest = false;
+									if(ChannelRequest) { 
+										getChannelList()
+									}
+									if(AppsRequest) {
+										getAppList()
 									}
 									pollTimer = setInterval(connect, parseInt(adapter.config.interval, 10))
 									break;
