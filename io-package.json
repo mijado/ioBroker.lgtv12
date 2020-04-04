@@ -65,120 +65,6 @@
      },
       "native": {}
     },
-	{
-       "_id": "states.launch",
-       "type": "state",
-       "common": {
-         "name": "Launch",
-         "role": "button",
-		 "type": "boolean",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    },
-	{
-       "_id": "states.3D",
-       "type": "state",
-       "common": {
-         "name": "3D",
-         "type": "boolean",
-         "role": "value",
-         "read": true,
-         "write": false
-     },
-      "native": {}
-    },
-	{
-		"_id": "states.inputSource",
-	    "type": "state",
-		"common": {
-			"name": "Input Source",
-			"role": "text",
-			"type": "array",
-			"states": [
-				"cable",
-				"terrestrial"
-			],
-		"read": true,
-		"write": true
-	},
-	  "native": {}	
-	},	
-    {
-       "_id": "states.mute",
-       "type": "state",
-       "common": {
-         "name": "mute",
-         "type": "boolean",
-         "role": "value",
-         "read": true,
-         "write": false
-    },	
-      "native": {}
-    },
-    {
-       "_id": "states.volume",
-       "type": "state",
-       "common": {
-         "name": "Current Volume",
-         "type": "number",
-         "role": "value",
-		 "min": 0,
-		 "max": 100,		 
-         "read": true,
-         "write": false
-     },
-      "native": {}
-    },
-    {
-       "_id": "states.app",
-       "type": "state",
-       "common": {
-         "name": "Current App",
-         "type": "string",
-         "role": "state",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    },	
-    {
-      "_id": "remote.Netflix",
-      "type": "state",
-      "common": {
-        "name": "Netflix ON/OFF",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.3Dmode",
-      "type": "state",
-      "common": {
-        "name": "Toggle 3D mode",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.back",
-      "type": "state",
-      "common": {
-        "name": "Toggle back",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
     {
       "_id": "remote.turnOff",
       "type": "state",
@@ -192,73 +78,13 @@
       "native": {}
     },
     {
-      "_id": "remote.mute",
+      "_id": "remote.Netflix",
       "type": "state",
       "common": {
-        "name": "Mute ON/OFF",
+        "name": "Netflix ON/OFF",
         "role": "button",
         "type": "boolean",
         "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.volumeUp",
-      "type": "state",
-      "common": {
-        "name": "Volume UP",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.volumeDown",
-      "type": "state",
-      "common": {
-        "name": "Volume DOWN",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.channelUp",
-      "type": "state",
-      "common": {
-        "name": "Channel UP",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.channelDown",
-      "type": "state",
-      "common": {
-        "name": "Channel DOWN",
-        "role": "button",
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "remote.input",
-      "type": "state",
-      "common": {
-        "name": "Switch input source",
-        "role": "button",
-        "type": "boolean",
-        "read": true,
         "write": true
       },
       "native": {}
@@ -382,19 +208,7 @@
         "write": true
       },
       "native": {}
-    },
-    {
-      "_id": "remote.ok",
-      "type": "state",
-      "common": {
-        "name": "OK",
-        "role": "button",
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
+    },	
     {
       "_id": "remote.up",
       "type": "state",
@@ -436,6 +250,102 @@
       "type": "state",
       "common": {
         "name": "Right",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.ok",
+      "type": "state",
+      "common": {
+        "name": "OK",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.back",
+      "type": "state",
+      "common": {
+        "name": "Toggle back",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.volumeUp",
+      "type": "state",
+      "common": {
+        "name": "Volume UP",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.volumeDown",
+      "type": "state",
+      "common": {
+        "name": "Volume DOWN",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.mute",
+      "type": "state",
+      "common": {
+        "name": "Mute ON/OFF",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.channelUp",
+      "type": "state",
+      "common": {
+        "name": "Channel UP",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.channelDown",
+      "type": "state",
+      "common": {
+        "name": "Channel DOWN",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.input",
+      "type": "state",
+      "common": {
+        "name": "Switch input source",
         "role": "button",
         "type": "boolean",
         "read": true,
@@ -502,6 +412,18 @@
         "write": true
       },
       "native": {}
+    },
+    {
+      "_id": "remote.3Dmode",
+      "type": "state",
+      "common": {
+        "name": "Toggle 3D mode",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
     },	
     {
       "_id": "remote.myApps",
@@ -513,6 +435,84 @@
         "read": true,
         "write": true
       },
+      "native": {}
+    },
+	{
+       "_id": "states.launch",
+       "type": "state",
+       "common": {
+         "name": "Launch",
+         "role": "button",
+		 "type": "boolean",
+         "read": false,
+         "write": true
+     },
+      "native": {}
+    },
+	{
+       "_id": "states.3D",
+       "type": "state",
+       "common": {
+         "name": "3D",
+         "type": "boolean",
+         "role": "value",
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+	{
+		"_id": "states.inputSource",
+	    "type": "state",
+		"common": {
+			"name": "Input Source",
+			"role": "text",
+			"type": "array",
+			"states": [
+				"cable",
+				"terrestrial"
+			],
+		"read": true,
+		"write": true
+	},
+	  "native": {}	
+	},	
+    {
+       "_id": "states.mute",
+       "type": "state",
+       "common": {
+         "name": "mute",
+         "type": "boolean",
+         "role": "value",
+         "read": true,
+         "write": false
+    },	
+      "native": {}
+    },
+    {
+       "_id": "states.volume",
+       "type": "state",
+       "common": {
+         "name": "Current Volume",
+         "type": "number",
+         "role": "value",
+		 "min": 0,
+		 "max": 100,		 
+         "read": true,
+         "write": false
+     },
+      "native": {}
+    },
+    {
+       "_id": "states.app",
+       "type": "state",
+       "common": {
+         "name": "Current App",
+         "type": "string",
+         "role": "state",
+         "read": false,
+         "write": true
+     },
       "native": {}
     }	
   ]
