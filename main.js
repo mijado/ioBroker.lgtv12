@@ -27,6 +27,7 @@ var AppsRequest = true;
 var Apps = ['']
 var auid = ['']
 var Channels = ['']
+var physicalNum = ['']
 
 if (module && module.parent) {
     module.exports = startAdapter;
@@ -215,7 +216,7 @@ function getAppList()
 						adapter.log.debug('AppName: '+ Apps[i] + ' auid:' + auid[i]);
 					}
 				}
-				adapter.setObjectNotExists('info.applist', {
+				adapter.setObjectNotExists('states.applist', {
 				type: 'state',
 				common: {
 					name: 'App List',
@@ -227,10 +228,8 @@ function getAppList()
 				},
 					native: {}
 				});
-				adapter.setState('info.applist', {val: Apps, ack: true});
-				adapter.setState('info.applist', {val: Apps[0], ack: true});
-				
-				
+				adapter.setState('states.applist', {val: Apps, ack: true});
+				adapter.setState('states.applist', {val: Apps[0], ack: true});
 				AppsRequest = false;
 			});
 	});
@@ -264,11 +263,13 @@ function getChannelList()
 				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
 				//Channels = [];
 				var x = xmlDoc.getElementsByTagName("chname");
+				var y = xmlDoc.getElementsByTagName("physicalNum");
 				for (var i = 0; i < 50; i++) {
 					adapter.log.debug(x[i].childNodes[0].nodeValue);
 					Channels.push(x[i].childNodes[0].nodeValue);
+					physicalNum.push(y[i].childNodes[0].nodeValue);
 				}
-				adapter.setObjectNotExists('info.channellist', {
+				adapter.setObjectNotExists('states.channellist', {
 				type: 'state',
 				common: {
 					name: 'Channel List',
@@ -280,7 +281,7 @@ function getChannelList()
 				},
 					native: {}
 				});
-				adapter.setState('info.channellist', {val: Channels, ack: true});
+				adapter.setState('states.channellist', {val: Channels, ack: true});
 				ChannelRequest = false;
 			});
 	});
@@ -491,11 +492,11 @@ function startAdapter(options) {
 											switch (chtype) {
 												case 'cable':
 													var Sender = xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue
-													adapter.setStateChanged('states.channel', Sender , true);
+													//adapter.setStateChanged('states.channel', Sender , true);
 													var index
 													for (index = 0; index < Channels.length; ++index) {
 														if(Channels[index] == Sender) {
-															adapter.setState('info.channellist', {val: Channels[index], ack: true});
+															adapter.setState('states.channellist', {val: Channels[index], ack: true});
 														}
 													}
 													break;
@@ -542,13 +543,6 @@ function startAdapter(options) {
 										adapter.setState('states.volume', volume, true);
 									}
 									break;
-								case "changeChannel":
-									/*
-									 Beispiel VOX: "<name>HandleChannelChange</name><major>12</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>26</physicalNum></command>
-									 Beispiel RTL: "<name>HandleChannelChange</name><major>4</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>1</physicalNum></command>"
-									*/
-									RequestCommand(data,"<name>HandleChannelChange</name><major>12</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>26</physicalNum></command>");
-									break;
 								case 'AppExecute':
 									adapter.log.debug("AppExecute");
 									if(loadedApp == '') {
@@ -562,7 +556,7 @@ function startAdapter(options) {
 									}
 									break;
 								default:
-									adapter.log.debug("default: " + commands[id]);
+									adapter.log.info("default: " + commands[id]);
 									RequestCommand(data, "<type>HandleKeyInput</type><value>" + commands[id] + "</value></command>");
 									break;
 							}
@@ -570,17 +564,35 @@ function startAdapter(options) {
 						} else adapter.log.info('RequestCommand, No Data response after RequestSessionKey!');
 					});
 				} else {
-					if(id == "info.allapps") {
-						var state = state.val
-						RequestSessionKey(adapter.config.pairingkey, function (data) 
-						{
-							if(data) { 
-								adapter.log.info('Starte App ' + AppName[state] + ' ' + auid[state]);
-								RequestCommand(data,"<name>AppExecute</name><auid>" + auid[state] + "</auid><appname>" + AppName[state] + "</appname></command>");
-							}
-
-						});
-					}
+					switch (id) {
+						case "states.applist":
+							adapter.log.info('states.applist: ' + commands[id]);
+							var state = state.val;
+							RequestSessionKey(adapter.config.pairingkey, function (data) 
+							{
+								if(data) { 
+									adapter.log.info('Starte App ' + Apps[state] + ' ' + auid[state]);
+									RequestCommand(data,"<name>AppExecute</name><auid>" + auid[state] + "</auid><appname>" + Apps[state] + "</appname></command>");
+								}
+							});
+							break;
+						case "states.channellist":
+							/*
+							 Beispiel VOX: "<name>HandleChannelChange</name><major>12</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>26</physicalNum></command>
+							 Beispiel RTL: "<name>HandleChannelChange</name><major>4</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>1</physicalNum></command>"
+							*/
+							adapter.log.info('states.channellist: ' + Channels[id]);
+							var state = state.val;
+							RequestSessionKey(adapter.config.pairingkey, function (data) 
+							{
+								if(data) { 
+									adapter.log.info('Starte Kanal ' + Channels[state]);
+									// major & physicalNum
+									RequestCommand(data,"<name>HandleChannelChange</name><major>" + state + "</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>" + physicalNum[state]+ "</physicalNum></command>");
+								}
+							});
+							break;
+					}	
 				}
 				
 			}
