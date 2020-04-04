@@ -501,7 +501,7 @@ function startAdapter(options) {
 													}
 													break;
 												case 'terrestrial':
-													adapter.setStateChanged('states.channel', '', true);
+													adapter.setStateChanged('states.channellist', Channels[0], true);
 													break;
 												default:
 													break;
