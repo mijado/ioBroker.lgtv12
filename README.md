@@ -63,6 +63,9 @@ Remote:
 
 ## Changelog
 
+### 0.0.5
+* erste Testversion
+
 ### 0.0.2
 * kleine Fehlerkorrekturen
 
