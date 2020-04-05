@@ -1,12 +1,12 @@
 {
   "name": "iobroker.lgtv12",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "lgtv12",
   "author": {
     "name": "mijado",
     "email": "mjantschar@web.de"
   },
-  "homepage": "https://github.com/mijado/ioBroker.lgtv2012",
+  "homepage": "https://github.com/mijado/ioBroker.lgtv12",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -53,7 +53,7 @@
     "lint": "eslint"
   },
   "bugs": {
-    "url": "https://github.com/mijado/ioBroker.lgtv2012/issues"
+    "url": "https://github.com/mijado/ioBroker.lgtv12/issues"
   },
   "readmeFilename": "README.md"
 }
