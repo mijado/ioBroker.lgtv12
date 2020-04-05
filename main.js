@@ -20,12 +20,13 @@ const xml2js = require('xml2js');
 
 let hostUrl, lgtvobj
 var pollTimer = null;
-var loadedApp = '';
-var volume;
+var volume; 
+var index;
+var AppOldIndex = null;
 var ChannelRequest = true;
 var AppsRequest = true;
-var Apps = ['']
-var auid = ['']
+var Apps = []
+var auid = []
 var Channels = ['']
 var physicalNum = ['']
 
@@ -40,20 +41,20 @@ let connected = false;
 
 var commands = {
 	"remote.turnOff": 1,
-	"remote.number0": 2,
-	"remote.number1": 3,
-	"remote.number2": 4,
-	"remote.number3": 5,
-	"remote.number4": 6,
-	"remote.number5": 7,
-	"remote.number6": 8,
-	"remote.number7": 9,
-	"remote.number8": 10,
-	"remote.number9": 11,
-    "remote.up": 12,
-    "remote.down": 13,
-    "remote.left": 14,
-    "remote.right": 15,
+	"remote.#0": 2,
+	"remote.#1": 3,
+	"remote.#2": 4,
+	"remote.#3": 5,
+	"remote.#4": 6,
+	"remote.#5": 7,
+	"remote.#6": 8,
+	"remote.#7": 9,
+	"remote.#8": 10,
+	"remote.#9": 11,
+    "remote.arrow_up": 12,
+    "remote.arrow_down": 13,
+    "remote.arrow_left": 14,
+    "remote.arrow_right": 15,
 	"remote.ok": 20,
 	"remote.home_menu": 21,
 	"remote.back": 23,
@@ -62,31 +63,31 @@ var commands = {
     "remote.mute": 26,
     "remote.channelUp": 27,
     "remote.channelDown": 28,
-	"remote.blue": 29,
-	"remote.green": 30,
-	"remote.red": 31,
-	"remote.yellow": 32,
-	"remote.play": 33,
-	"remote.pause": 34,
-	"remote.stop": 35,
-	"fastForward": 36,
-	"rewind": 37,
-	"skipForward": 38,
-	"skipBackward": 39,
-	"record": 40,
-	"recordingList": 41,
-	"repeat": 42,
-	"liveTv": 43,
-	"epg": 44,
-	"Prog_info": 45,
-	"ratio": 46,
+	"remote.color_blue": 29,
+	"remote.color_green": 30,
+	"remote.color_red": 31,
+	"remote.color_yellow": 32,
+	"remote.player_play": 33,
+	"remote.player_pause": 34,
+	"remote.player_stop": 35,
+	"remote.player_fastForward": 36,
+	"remote.player_rewind": 37,
+	"remote.player_skipForward": 38,
+	"remote.player_skipBackward": 39,
+	"remote.record": 40,
+	"remote.recordingList": 41,
+	"remote.repeat": 42,
+	"remote.liveTv": 43,
+	"remote.epg": 44,
+	"remote.prog_info": 45,
+	"remote.ratio": 46,
 	"remote.input": 47,
-	"PiP": 48,
+	"remote.pip": 48,
 	"subtitle": 49,
-	"proglist": 50,
+	"remote.proglist": 50,
 	"teletext": 51,
 	"mark": 52,
-	"3Dmode": 400,
+	"remote.3Dmode": 400,
 	"3D_L/R": 401,
 	"dash": 402,
 	"prevchannel": 403,
@@ -98,12 +99,12 @@ var commands = {
 	"energySaving": 409,
 	"avMode": 410,
 	"simplink": 411,
-	"exit": 412,
+	"remote.exit": 412,
 	"reservationProglist": 413,
 	"PiP_channelUp": 414,
 	"PiP_channelDown": 415,
 	"switchPriSecVideo": 416,
-	"myApps": 417,
+	"remote.myApps": 417,
 	"states.launch": "states",
 	"MOUSE_MOVE": "HandleTouchMove",
 	"MOUSE_CLICK": "HandleTouchClick",
@@ -118,9 +119,8 @@ var commands = {
 	"INFO_SCREEN":"screen_image",
 	"INFO_3D": "is_3d",
 	"INFO_APPS": "applist_get&type=1&index=1&number=1024",
-	"remote.Netflix": "AppExecute",
-	"TERMINATE_APP": "AppTerminate",
-	"remote.changeChannel": "changeChannel"
+	"remote.Netflix": "Netflix",
+	"TERMINATE_APP": "AppTerminate"
 }
 
 
@@ -208,8 +208,7 @@ function getAppList()
 				var x = xmlDoc.getElementsByTagName("icon_name");
 				var id = xmlDoc.getElementsByTagName("auid");
 				var n = xmlDoc.getElementsByTagName("name");
-				//Apps = [];
-				for (var i = 0; i < x.length; i++) {
+				for (var i = 1; i < x.length; i++) {
 					if(x[i].childNodes[0].nodeValue.search('addon') < 0) {
 						Apps.push(n[i].childNodes[0].nodeValue);
 						auid.push(id[i].childNodes[0].nodeValue);
@@ -229,7 +228,7 @@ function getAppList()
 					native: {}
 				});
 				adapter.setState('states.applist', {val: Apps, ack: true});
-				adapter.setState('states.applist', {val: Apps[0], ack: true});
+				adapter.setState('states.applist', {val: '', ack: true});
 				AppsRequest = false;
 			});
 	});
@@ -493,7 +492,6 @@ function startAdapter(options) {
 												case 'cable':
 													var Sender = xmlDoc.getElementsByTagName("chname")[0].childNodes[0].nodeValue
 													//adapter.setStateChanged('states.channel', Sender , true);
-													var index
 													for (index = 0; index < Channels.length; ++index) {
 														if(Channels[index] == Sender) {
 															adapter.setState('states.channellist', {val: Channels[index], ack: true});
@@ -539,21 +537,31 @@ function startAdapter(options) {
 									if(volume>0) { 
 										adapter.log.debug("volume down(25)");
 										RequestCommand(data, "<type>HandleKeyInput</type><value>25</value></command>");
-										volume = volume - 1
+										volume = volume - 2
 										adapter.setState('states.volume', volume, true);
 									}
 									break;
-								case 'AppExecute':
-									adapter.log.debug("AppExecute");
-									if(loadedApp == '') {
-										RequestCommand(data,"<name>AppExecute</name><auid>00000000000112ae</auid><appname>Netflix</appname></command>");
-										loadedApp = "Netflix,00000000000112ae";
-										adapter.setState('states.app', loadedApp, true);
-									} else {
-										RequestCommand(data,"<name>AppTerminate</name><auid>00000000000112ae</auid><appname>Netflix</appname></command>")
-										loadedApp = "";
-										adapter.setState('states.app', loadedApp, true);
-									}
+								case 'Netflix':
+									adapter.getState('states.applist', function (err, state) {
+										if(state.val != 'Netflix') {
+											adapter.log.debug("Starte Netflix");
+											for (index = 0; index < Apps.length; ++index) {
+												if(Apps[index] == 'Netflix') {
+													adapter.setState('states.applist', {val: Apps[index], ack: true});
+													RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
+													/*
+													setTimeout(function() {
+														RequestCommand(data, "<type>HandleKeyInput</type><value>20</value></command>");
+													}, 60000);
+													*/
+												}
+											}
+										} else {
+											adapter.log.debug("Beende Netflix");
+											adapter.setState('states.applist', {val: Apps[0], ack: true});
+											RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[state.val] + "</auid><appname>" + Apps[state.val] + "</appname></command>")
+										}						
+									});
 									break;
 								default:
 									adapter.log.info("default: " + commands[id]);
@@ -566,13 +574,22 @@ function startAdapter(options) {
 				} else {
 					switch (id) {
 						case "states.applist":
-							adapter.log.info('states.applist: ' + commands[id]);
-							var state = state.val;
+
+							adapter.log.info('states.applist: ' + state.val);
+							index = state.val;
 							RequestSessionKey(adapter.config.pairingkey, function (data) 
 							{
-								if(data) { 
-									adapter.log.info('Starte App ' + Apps[state] + ' ' + auid[state]);
-									RequestCommand(data,"<name>AppExecute</name><auid>" + auid[state] + "</auid><appname>" + Apps[state] + "</appname></command>");
+								if(data) {
+									if(index != 0) {
+										adapter.log.info('Starte App ' + Apps[index] + ' ' + auid[index]);
+										RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
+										AppOldIndex = index;
+									} else {
+										adapter.log.info('Stoppe App ' + Apps[AppOldIndex] + ' ' + auid[AppOldIndex]);
+										adapter.setState('states.applist', {val: '', ack: true});
+										RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[AppOldIndex] + "</auid><appname>" + Apps[AppOldIndex] + "</appname></command>");
+										AppOldIndex = null;
+									}
 								}
 							});
 							break;
@@ -581,16 +598,18 @@ function startAdapter(options) {
 							 Beispiel VOX: "<name>HandleChannelChange</name><major>12</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>26</physicalNum></command>
 							 Beispiel RTL: "<name>HandleChannelChange</name><major>4</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>1</physicalNum></command>"
 							*/
-							adapter.log.info('states.channellist: ' + Channels[id]);
-							var state = state.val;
+							adapter.log.debug('states.channellist: ' + Channels[id]);
+							var major = state.val;
 							RequestSessionKey(adapter.config.pairingkey, function (data) 
 							{
 								if(data) { 
-									adapter.log.info('Starte Kanal ' + Channels[state]);
-									// major & physicalNum
-									RequestCommand(data,"<name>HandleChannelChange</name><major>" + state + "</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>" + physicalNum[state]+ "</physicalNum></command>");
+									adapter.log.debug('Starte Kanal ' + Channels[major]);
+									RequestCommand(data,"<name>HandleChannelChange</name><major>" + major + "</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>" + physicalNum[major]+ "</physicalNum></command>");
 								}
 							});
+							break;
+						default:
+							adapter.log.info("unknown command: " + id);
 							break;
 					}	
 				}
