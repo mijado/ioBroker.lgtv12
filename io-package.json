@@ -90,7 +90,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number0",
+      "_id": "remote.#0",
       "type": "state",
       "common": {
         "name": "Number 0",
@@ -102,7 +102,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number1",
+      "_id": "remote.#1",
       "type": "state",
       "common": {
         "name": "Number 1",
@@ -114,7 +114,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number2",
+      "_id": "remote.#2",
       "type": "state",
       "common": {
         "name": "Number 2",
@@ -126,7 +126,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number3",
+      "_id": "remote.#3",
       "type": "state",
       "common": {
         "name": "Number 3",
@@ -138,7 +138,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number4",
+      "_id": "remote.#4",
       "type": "state",
       "common": {
         "name": "Number 4",
@@ -150,7 +150,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number5",
+      "_id": "remote.#5",
       "type": "state",
       "common": {
         "name": "Number 5",
@@ -162,7 +162,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number6",
+      "_id": "remote.#6",
       "type": "state",
       "common": {
         "name": "Number 6",
@@ -174,7 +174,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number7",
+      "_id": "remote.#7",
       "type": "state",
       "common": {
         "name": "Number 7",
@@ -186,7 +186,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number8",
+      "_id": "remote.#8",
       "type": "state",
       "common": {
         "name": "Number 8",
@@ -198,7 +198,7 @@
       "native": {}
     },
     {
-      "_id": "remote.number9",
+      "_id": "remote.#9",
       "type": "state",
       "common": {
         "name": "Number 9",
@@ -210,7 +210,7 @@
       "native": {}
     },	
     {
-      "_id": "remote.up",
+      "_id": "remote.arrrow_up",
       "type": "state",
       "common": {
         "name": "Up",
@@ -222,7 +222,7 @@
       "native": {}
     },
     {
-      "_id": "remote.down",
+      "_id": "remote.arrow_down",
       "type": "state",
       "common": {
         "name": "Down",
@@ -234,7 +234,7 @@
       "native": {}
     },
     {
-      "_id": "remote.left",
+      "_id": "remote.arrow_left",
       "type": "state",
       "common": {
         "name": "Left",
@@ -246,7 +246,7 @@
       "native": {}
     },
     {
-      "_id": "remote.right",
+      "_id": "remote.arrow_right",
       "type": "state",
       "common": {
         "name": "Right",
@@ -342,6 +342,54 @@
       "native": {}
     },
     {
+      "_id": "remote.color_blue",
+      "type": "state",
+      "common": {
+        "name": "Blue Button",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+   {
+      "_id": "remote.color_green",
+      "type": "state",
+      "common": {
+        "name": "Green Button",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+   {
+      "_id": "remote.color_red",
+      "type": "state",
+      "common": {
+        "name": "Red Button",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+   {
+      "_id": "remote.color_yellow",
+      "type": "state",
+      "common": {
+        "name": "Yellow Button",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
       "_id": "remote.input",
       "type": "state",
       "common": {
@@ -354,7 +402,7 @@
       "native": {}
     },
     {
-      "_id": "remote.play",
+      "_id": "remote.player_play",
       "type": "state",
       "common": {
         "name": "Play",
@@ -366,7 +414,7 @@
       "native": {}
     },
     {
-      "_id": "remote.pause",
+      "_id": "remote.player_pause",
       "type": "state",
       "common": {
         "name": "Pause",
@@ -378,7 +426,7 @@
       "native": {}
     },
     {
-      "_id": "remote.stop",
+      "_id": "remote.player_stop",
       "type": "state",
       "common": {
         "name": "Stop",
@@ -389,6 +437,54 @@
       },
       "native": {}
     },
+    {
+      "_id": "remote.player_fastForward",
+      "type": "state",
+      "common": {
+        "name": "fast Forward",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.player_rewind",
+      "type": "state",
+      "common": {
+        "name": "Rewind",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },		
+    {
+      "_id": "remote.player_skipForward",
+      "type": "state",
+      "common": {
+        "name": "skip Forward",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.player_skipBackward",
+      "type": "state",
+      "common": {
+        "name": "skip Backward",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },	
     {
       "_id": "remote.record",
       "type": "state",
@@ -402,6 +498,42 @@
       "native": {}
     },
     {
+      "_id": "remote.recordingList",
+      "type": "state",
+      "common": {
+        "name": "RecordingList",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
+      "_id": "remote.repeat",
+      "type": "state",
+      "common": {
+        "name": "Repeat",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.liveTv",
+      "type": "state",
+      "common": {
+        "name": "Live TV",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
       "_id": "remote.epg",
       "type": "state",
       "common": {
@@ -414,10 +546,70 @@
       "native": {}
     },
     {
+      "_id": "remote.prog_info",
+      "type": "state",
+      "common": {
+        "name": "Program Info",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.ratio",
+      "type": "state",
+      "common": {
+        "name": "ratio",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.input",
+      "type": "state",
+      "common": {
+        "name": "Input",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.proglist",
+      "type": "state",
+      "common": {
+        "name": "Program List",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
       "_id": "remote.3Dmode",
       "type": "state",
       "common": {
         "name": "Toggle 3D mode",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.exit",
+      "type": "state",
+      "common": {
+        "name": "Exit",
         "role": "button",
         "type": "boolean",
         "read": false,
@@ -473,7 +665,7 @@
 				"terrestrial"
 			],
 		"read": true,
-		"write": true
+		"write": false
 	},
 	  "native": {}	
 	},	
@@ -502,18 +694,6 @@
          "write": false
      },
       "native": {}
-    },
-    {
-       "_id": "states.app",
-       "type": "state",
-       "common": {
-         "name": "Current App",
-         "type": "string",
-         "role": "state",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    }	
+    }
   ]
 }
