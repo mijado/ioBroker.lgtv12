@@ -231,9 +231,6 @@ function getAppList()
 				});
 				adapter.setState('states.applist', {val: Apps, ack: true});
 				adapter.setState('states.applist', {val: Apps[0], ack: true});
-				Apps.forEach(function(item, index, array) {
-					adapter.log.info(item +","+ index);
-				});
 				AppsRequest = false;
 			});
 	});
@@ -563,32 +560,28 @@ function startAdapter(options) {
 									});
 									break;
 								default:
-									adapter.log.info("default: " + commands[id]);
+									adapter.log.debug("default: " + commands[id]);
 									RequestCommand(data, "<type>HandleKeyInput</type><value>" + commands[id] + "</value></command>");
 									break;
 							}
 							adapter.setState(id, !!state.val, true);
-						} else adapter.log.info('RequestCommand, No Data response after RequestSessionKey!');
+						} else adapter.log.debug('RequestCommand, No Data response after RequestSessionKey!');
 					});
 				} else {
 					switch (id) {
 						case "states.applist":
-				Apps.forEach(function(item, index, array) {
-					adapter.log.info(item +","+ index);
-				});
-
-							adapter.log.info('states.applist: ' + state.val);
+							adapter.log.debug('states.applist: ' + state.val);
 							index = state.val;
 							RequestSessionKey(adapter.config.pairingkey, function (data) 
 							{
 								if(data) {
 									if(index != 0) {
 										
-										adapter.log.info('Starte App ' + Apps[index] + ' ' + auid[index]);
+										adapter.log.debug('Start App ' + Apps[index] + ' ' + auid[index]);
 										RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
 										AppOldIndex = index;
 									} else {
-										adapter.log.info('Stoppe App ' + Apps[AppOldIndex] + ' ' + auid[AppOldIndex]);
+										adapter.log.debug('Stop App ' + Apps[AppOldIndex] + ' ' + auid[AppOldIndex]);
 										adapter.setState('states.applist', {val: Apps[0], ack: true});
 										RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[AppOldIndex] + "</auid><appname>" + Apps[AppOldIndex] + "</appname></command>");
 										AppOldIndex = null;
@@ -612,7 +605,7 @@ function startAdapter(options) {
 							});
 							break;
 						default:
-							adapter.log.info("unknown command: " + id);
+							adapter.log.warn("unknown command: " + id);
 							break;
 					}	
 				}
