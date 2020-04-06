@@ -61,6 +61,9 @@ EPG
 
 ## Changelog
 
+### 0.0.7
+* kleine Änderungen
+
 ### 0.0.6
 * Korrektur Applist
 
