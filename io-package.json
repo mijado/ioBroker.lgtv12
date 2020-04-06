@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "lgtv12",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
             "0.0.1": {
                 "de": "Erstveröffentlichung"
