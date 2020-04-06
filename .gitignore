@@ -3,6 +3,7 @@
 *.code-workspace
 node_modules
 nbproject
+iob_npm.done
 
 # npm package files
 iobroker.*.tgz
@@ -12,5 +13,3 @@ Thumbs.db
 # i18n intermediate files
 admin/i18n/flat.txt
 admin/i18n/*/flat.txt
-
-iob_npm.done
