@@ -208,7 +208,9 @@ function getAppList()
 				var x = xmlDoc.getElementsByTagName("icon_name");
 				var id = xmlDoc.getElementsByTagName("auid");
 				var n = xmlDoc.getElementsByTagName("name");
-				for (var i = 1; i < x.length; i++) {
+				Apps.push('TV');
+				auid.push('000');
+				for (var i = 0; i < x.length; i++) {
 					if(x[i].childNodes[0].nodeValue.search('addon') < 0) {
 						Apps.push(n[i].childNodes[0].nodeValue);
 						auid.push(id[i].childNodes[0].nodeValue);
@@ -228,7 +230,10 @@ function getAppList()
 					native: {}
 				});
 				adapter.setState('states.applist', {val: Apps, ack: true});
-				adapter.setState('states.applist', {val: '', ack: true});
+				adapter.setState('states.applist', {val: Apps[0], ack: true});
+				Apps.forEach(function(item, index, array) {
+					adapter.log.info(item +","+ index);
+				});
 				AppsRequest = false;
 			});
 	});
@@ -260,7 +265,6 @@ function getChannelList()
 				adapter.log.debug('getChannelList xmldata ' + xmldata.length + ' : ' + xmldata);
 				parser = new DOMParser();
 				var xmlDoc = parser.parseFromString(xmldata,"text/xml");
-				//Channels = [];
 				var x = xmlDoc.getElementsByTagName("chname");
 				var y = xmlDoc.getElementsByTagName("physicalNum");
 				for (var i = 0; i < 50; i++) {
@@ -574,6 +578,9 @@ function startAdapter(options) {
 				} else {
 					switch (id) {
 						case "states.applist":
+				Apps.forEach(function(item, index, array) {
+					adapter.log.info(item +","+ index);
+				});
 
 							adapter.log.info('states.applist: ' + state.val);
 							index = state.val;
@@ -581,12 +588,13 @@ function startAdapter(options) {
 							{
 								if(data) {
 									if(index != 0) {
+										
 										adapter.log.info('Starte App ' + Apps[index] + ' ' + auid[index]);
 										RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
 										AppOldIndex = index;
 									} else {
 										adapter.log.info('Stoppe App ' + Apps[AppOldIndex] + ' ' + auid[AppOldIndex]);
-										adapter.setState('states.applist', {val: '', ack: true});
+										adapter.setState('states.applist', {val: Apps[0], ack: true});
 										RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[AppOldIndex] + "</auid><appname>" + Apps[AppOldIndex] + "</appname></command>");
 										AppOldIndex = null;
 									}
@@ -617,7 +625,7 @@ function startAdapter(options) {
 			}
         },
         unload: function (callback) {
-			adapter.setState('states.app', '', true);
+			adapter.setState('states.app', Apps[0], true);
             callback();
         },
         ready: function () {
