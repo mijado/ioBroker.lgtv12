@@ -553,11 +553,6 @@ function startAdapter(options) {
 												if(Apps[index] == 'Netflix') {
 													adapter.setState('states.applist', {val: Apps[index], ack: true});
 													RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
-													/*
-													setTimeout(function() {
-														RequestCommand(data, "<type>HandleKeyInput</type><value>20</value></command>");
-													}, 60000);
-													*/
 												}
 											}
 										} else {
