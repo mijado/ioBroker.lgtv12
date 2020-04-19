@@ -3,9 +3,9 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.lgtv12.svg)](https://www.npmjs.com/package/iobroker.lgtv12)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.lgtv12.svg)](https://www.npmjs.com/package/iobroker.lgtv12)
-![Number of Installations (latest)](http://iobroker.live/badges/lgtv2012-installed.svg)
-![Number of Installations (stable)](http://iobroker.live/badges/lgtv2012-stable.svg)
-[![Dependency Status](https://img.shields.io/david/mijado/iobroker.lgtv2012.svg)](https://david-dm.org/mijado/iobroker.lgtv12)
+![Number of Installations (latest)](http://iobroker.live/badges/lgtv12-installed.svg)
+![Number of Installations (stable)](http://iobroker.live/badges/lgtv12-stable.svg)
+[![Dependency Status](https://img.shields.io/david/mijado/iobroker.lgtv12.svg)](https://david-dm.org/mijado/iobroker.lgtv12)
 [![Known Vulnerabilities](https://snyk.io/test/github/mijado/ioBroker.lgtv12/badge.svg)](https://snyk.io/test/github/mijado/ioBroker.lgtv12)
 
 [![NPM](https://nodei.co/npm/iobroker.lgtv2012.png?downloads=true)](https://nodei.co/npm/iobroker.lgtv12/)
