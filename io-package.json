@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "lgtv12",
-        "version": "0.0.7",
+        "version": "0.0.8",
         "news": {
+			"0.0.8": {
+				"de": "Änderungen README.md"
+			}
             "0.0.1": {
                 "de": "Erstveröffentlichung"
             }
@@ -85,7 +88,9 @@
         "role": "button",
         "type": "boolean",
         "read": false,
-        "write": true
+        "write": true,
+		"desc": "Netflix starten",
+		"smartName": "Netflix"    
       },
       "native": {}
     },
@@ -406,10 +411,12 @@
       "type": "state",
       "common": {
         "name": "Play",
-        "role": "button",
+        "role": "button.play",
         "type": "boolean",
         "read": true,
-        "write": true
+        "write": true,
+		"desc": "Spiele Player",
+		"smartName": "Spiele Player"
       },
       "native": {}
     },
@@ -418,10 +425,12 @@
       "type": "state",
       "common": {
         "name": "Pause",
-        "role": "button",
+        "role": "button.pause",
         "type": "boolean",
         "read": true,
-        "write": true
+        "write": true,
+		"desc": "Pause Player",
+		"smartName": "Pause Player"
       },
       "native": {}
     },
@@ -430,10 +439,12 @@
       "type": "state",
       "common": {
         "name": "Stop",
-        "role": "button",
+        "role": "button.stop",
         "type": "boolean",
         "read": true,
-        "write": true
+        "write": true,
+		"desc": "Stop Player",
+		"smartName": "Stop Player"
       },
       "native": {}
     },
@@ -466,7 +477,7 @@
       "type": "state",
       "common": {
         "name": "skip Forward",
-        "role": "button",
+        "role": "button.next",
         "type": "boolean",
         "read": true,
         "write": true
