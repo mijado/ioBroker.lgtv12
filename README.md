@@ -17,49 +17,52 @@
 Steuerung LG SmartTV 12 über [ioBroker](https://www.iobroker.net)
 
 ## State:
-Connected
-3D
-Input Source
-Mute
-Current Volume
-Channel List
+Connected,
+3D,
+Input Source,
+Mute,
+Current Volume,
+Channel List,
 App List
 ## Remote:
-Netflix ON/OFF
-Change Channel
-Toggle 3D mode
-Toggle Back
-Switch TV OFF
-Mute ON/OFF
-Volume UP
-Volume DOWN
-Channel UP
-Channel DOWN
-Switch Input Source
-Number 0
-Number 1
-Number 2
-Number 3
-Number 4
-Number 5
-Number 6
-Number 7
-Number 8
-Number 9
-OK
-Up
-Down
-Left
-Right
-Play
-Pause
-Stop
-Record
-Recordlist
+Netflix ON/OFF,
+Change Channel,
+Toggle 3D mode,
+Toggle Back,
+Switch TV OFF,
+Mute ON/OFF,
+Volume UP,
+Volume DOWN,
+Channel UP,
+Channel DOWN,
+Switch Input Source,
+Number 0,
+Number 1,
+Number 2,
+Number 3,
+Number 4,
+Number 5,
+Number 6,
+Number 7,
+Number 8,
+Number 9,
+OK,
+Up,
+Down,
+Left,
+Right,
+Play,
+Pause,
+Stop,
+Record,
+Recordlist,
 EPG
 
 
 ## Changelog
+
+### 0.0.8
+* Änderungen README.md
 
 ### 0.0.7
 * kleine Änderungen
