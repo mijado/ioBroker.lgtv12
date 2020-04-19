@@ -1,4 +1,4 @@
-![Logo](admin/lgtv2012.png)
+![Logo](admin/lgtv12.png)
 # ioBroker.lgtv12
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.lgtv12.svg)](https://www.npmjs.com/package/iobroker.lgtv12)
@@ -8,7 +8,7 @@
 [![Dependency Status](https://img.shields.io/david/mijado/iobroker.lgtv12.svg)](https://david-dm.org/mijado/iobroker.lgtv12)
 [![Known Vulnerabilities](https://snyk.io/test/github/mijado/ioBroker.lgtv12/badge.svg)](https://snyk.io/test/github/mijado/ioBroker.lgtv12)
 
-[![NPM](https://nodei.co/npm/iobroker.lgtv2012.png?downloads=true)](https://nodei.co/npm/iobroker.lgtv12/)
+[![NPM](https://nodei.co/npm/iobroker.lgtv12.png?downloads=true)](https://nodei.co/npm/iobroker.lgtv12/)
 
 **Tests:**: [![Travis-CI](http://img.shields.io/travis/mijado/ioBroker.lgtv12/master.svg)](https://travis-ci.org/mijado/ioBroker.lgtv12)
 
