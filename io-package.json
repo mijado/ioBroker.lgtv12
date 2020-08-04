@@ -1,71 +1,72 @@
 {
-    "common": {
-        "name": "lgtv12",
-        "version": "0.0.8",
-        "news": {
-			"0.0.8": {
-				"de": "Änderungen README.md"
-			},
-            "0.0.1": {
-                "de": "Erstveröffentlichung"
-            }
-        },
-        "title": "LG TV 12",
-        "titleLang": {
-            "de": "LG TV 12"
-        },
-        "desc": {
-            "de": "Steuerung LG SmartTV Modelle 12"
-        },
-        "authors": [
-            "Michael Jantschar"
-        ],
-        "keywords": [
-            "ioBroker",
-            "LG TV",
-            "Smart Home",
-            "home automation"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "lgtv12.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv12/master/admin/lgtv12.png",
-        "readme": "https://github.com/mijado/ioBroker.lgtv12/blob/master/README.md",
-        "loglevel": "info",
-		"messagebox": true,		
-        "mode": "daemon",
-        "type": "multimedia",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "materialize": true,
-		"subscribe": "messagebox",		
-        "dependencies": [
-            {
-                "js-controller": ">=1.4.2"
-            }
-        ]
+  "common": {
+    "name": "lgtv12",
+    "version": "0.0.8",
+    "news": {
+      "0.0.8": {
+        "de": "Änderungen README.md"
+      },
+      "0.0.1": {
+        "de": "Erstveröffentlichung"
+      }
     },
-    "native": {
-        "ip": "",
-        "port": "8080",
-		"pairingkey": "",
-		"interval": "15000"
+    "title": "LG TV 12",
+    "titleLang": {
+      "de": "LG TV 12"
     },
-    "objects": [],
-    "instanceObjects": [
-   {
-       "_id": "connected",
-       "type": "state",
-       "common": {
-         "name": "connected",
-         "type": "boolean",
-         "role": "indicator.connected",
-         "read": true,
-         "write": false
-     },
+    "desc": {
+      "de": "Steuerung LG SmartTV Modelle 12"
+    },
+    "authors": [
+      "Michael Jantschar"
+    ],
+    "keywords": [
+      "ioBroker",
+      "LG TV",
+      "Smart Home",
+      "home automation"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "lgtv12.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/mijado/ioBroker.lgtv12/master/admin/lgtv12.png",
+    "readme": "https://github.com/mijado/ioBroker.lgtv12/blob/master/README.md",
+    "loglevel": "info",
+    "messagebox": true,
+    "mode": "daemon",
+    "type": "multimedia",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "materialize": true,
+    "subscribe": "messagebox",
+    "dependencies": [
+      {
+        "js-controller": ">=1.4.2"
+      }
+    ],
+    "installedFrom": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3"
+  },
+  "native": {
+    "ip": "",
+    "port": "8080",
+    "pairingkey": "",
+    "interval": "15000"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "connected",
+      "type": "state",
+      "common": {
+        "name": "connected",
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false
+      },
       "native": {}
     },
     {
@@ -89,8 +90,8 @@
         "type": "boolean",
         "read": false,
         "write": true,
-		"desc": "Netflix starten",
-		"smartName": "Netflix"    
+        "desc": "Netflix starten",
+        "smartName": "Netflix"
       },
       "native": {}
     },
@@ -213,7 +214,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.arrrow_up",
       "type": "state",
@@ -358,7 +359,7 @@
       },
       "native": {}
     },
-   {
+    {
       "_id": "remote.color_green",
       "type": "state",
       "common": {
@@ -370,7 +371,7 @@
       },
       "native": {}
     },
-   {
+    {
       "_id": "remote.color_red",
       "type": "state",
       "common": {
@@ -382,7 +383,7 @@
       },
       "native": {}
     },
-   {
+    {
       "_id": "remote.color_yellow",
       "type": "state",
       "common": {
@@ -393,7 +394,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.input",
       "type": "state",
@@ -415,8 +416,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-		"desc": "Spiele Player",
-		"smartName": "Spiele Player"
+        "desc": "Spiele Player",
+        "smartName": "Spiele Player"
       },
       "native": {}
     },
@@ -429,8 +430,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-		"desc": "Pause Player",
-		"smartName": "Pause Player"
+        "desc": "Pause Player",
+        "smartName": "Pause Player"
       },
       "native": {}
     },
@@ -443,8 +444,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-		"desc": "Stop Player",
-		"smartName": "Stop Player"
+        "desc": "Stop Player",
+        "smartName": "Stop Player"
       },
       "native": {}
     },
@@ -471,7 +472,7 @@
         "write": true
       },
       "native": {}
-    },		
+    },
     {
       "_id": "remote.player_skipForward",
       "type": "state",
@@ -495,7 +496,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.record",
       "type": "state",
@@ -519,7 +520,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.repeat",
       "type": "state",
@@ -543,7 +544,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.epg",
       "type": "state",
@@ -603,7 +604,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.3Dmode",
       "type": "state",
@@ -627,7 +628,7 @@
         "write": true
       },
       "native": {}
-    },	
+    },
     {
       "_id": "remote.myApps",
       "type": "state",
@@ -640,70 +641,70 @@
       },
       "native": {}
     },
-	{
-       "_id": "states.launch",
-       "type": "state",
-       "common": {
-         "name": "Launch",
-         "role": "button",
-		 "type": "boolean",
-         "read": false,
-         "write": true
-     },
-      "native": {}
-    },
-	{
-       "_id": "states.3D",
-       "type": "state",
-       "common": {
-         "name": "3D",
-         "type": "boolean",
-         "role": "value",
-         "read": true,
-         "write": false
-     },
-      "native": {}
-    },
-	{
-		"_id": "states.inputSource",
-	    "type": "state",
-		"common": {
-			"name": "Input Source",
-			"role": "text",
-			"type": "array",
-			"states": [
-				"cable",
-				"terrestrial"
-			],
-		"read": true,
-		"write": false
-	},
-	  "native": {}	
-	},	
     {
-       "_id": "states.mute",
-       "type": "state",
-       "common": {
-         "name": "mute",
-         "type": "boolean",
-         "role": "value",
-         "read": true,
-         "write": false
-    },	
+      "_id": "states.launch",
+      "type": "state",
+      "common": {
+        "name": "Launch",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
       "native": {}
     },
     {
-       "_id": "states.volume",
-       "type": "state",
-       "common": {
-         "name": "Current Volume",
-         "type": "number",
-         "role": "value",
-		 "min": 0,
-		 "max": 100,		 
-         "read": true,
-         "write": false
-     },
+      "_id": "states.3D",
+      "type": "state",
+      "common": {
+        "name": "3D",
+        "type": "boolean",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "states.inputSource",
+      "type": "state",
+      "common": {
+        "name": "Input Source",
+        "role": "text",
+        "type": "array",
+        "states": [
+          "cable",
+          "terrestrial"
+        ],
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "states.mute",
+      "type": "state",
+      "common": {
+        "name": "mute",
+        "type": "boolean",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "states.volume",
+      "type": "state",
+      "common": {
+        "name": "Current Volume",
+        "type": "number",
+        "role": "value",
+        "min": 0,
+        "max": 100,
+        "read": true,
+        "write": false
+      },
       "native": {}
     }
   ]
