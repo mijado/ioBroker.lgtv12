@@ -1,28 +1,42 @@
 {
-  "name": "iobroker.lgtv12",
-  "version": "0.0.8",
-  "description": "lgtv12",
+  "_from": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+  "_id": "iobroker.lgtv12@0.0.10",
+  "_inBundle": false,
+  "_integrity": "sha512-d7bgebPOMnYVqOF4PcpEZlMc/t3X3AsfXycc8Y5dbd5iRG/0uixfer3jhagD0GD+62IOyTuGygasbZY/rZceEg==",
+  "_location": "/iobroker.lgtv12",
+  "_phantomChildren": {
+    "@types/node": "13.13.4"
+  },
+  "_requested": {
+    "type": "remote",
+    "raw": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+    "rawSpec": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+    "saveSpec": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+    "fetchSpec": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+  "_shasum": "2bad7ce0f6df4ed84b0c7aa439f776b443f6278f",
+  "_spec": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3",
+  "_where": "/opt/iobroker",
   "author": {
     "name": "mijado",
     "email": "mjantschar@web.de"
   },
-  "homepage": "https://github.com/mijado/ioBroker.lgtv12",
-  "license": "MIT",
-  "keywords": [
-    "ioBroker",
-    "template",
-    "Smart Home",
-    "home automation"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mijado/ioBroker.lgtv12"
+  "bugs": {
+    "url": "https://github.com/mijado/ioBroker.lgtv12/issues"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "@iobroker/adapter-core": "^2.2.1",
     "xml2js": "^0.4.23",
     "xmldom": "^0.3.0"
   },
+  "deprecated": false,
+  "description": "lgtv12",
   "devDependencies": {
     "@iobroker/testing": "^2.1.0",
     "@types/chai": "^4.2.10",
@@ -43,17 +57,27 @@
     "sinon": "^9.0.0",
     "sinon-chai": "^3.5.0"
   },
+  "homepage": "https://github.com/mijado/ioBroker.lgtv12",
+  "keywords": [
+    "ioBroker",
+    "template",
+    "Smart Home",
+    "home automation"
+  ],
+  "license": "MIT",
   "main": "main.js",
+  "name": "iobroker.lgtv12",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mijado/ioBroker.lgtv12.git"
+  },
   "scripts": {
+    "lint": "eslint",
+    "test": "npm run test:js && npm run test:package",
+    "test:integration": "mocha test/integration --exit",
     "test:js": "mocha --opts test/mocha.custom.opts",
     "test:package": "mocha test/package --exit",
-    "test:unit": "mocha test/unit --exit",
-    "test:integration": "mocha test/integration --exit",
-    "test": "npm run test:js && npm run test:package",
-    "lint": "eslint"
+    "test:unit": "mocha test/unit --exit"
   },
-  "bugs": {
-    "url": "https://github.com/mijado/ioBroker.lgtv12/issues"
-  },
-  "readmeFilename": "README.md"
+  "version": "0.0.8"
 }
