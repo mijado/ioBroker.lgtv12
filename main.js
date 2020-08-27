@@ -124,8 +124,6 @@ var commands = {
 }
 
 
-
-
 function connect()
 {
 	adapter.log.debug("connect() Start");
