@@ -20,8 +20,7 @@ const xml2js = require('xml2js');
 
 let hostUrl, lgtvobj
 var pollTimer = null;
-var volume; 
-var index;
+var volume, index;
 var AppOldIndex = null;
 var ChannelRequest = true;
 var AppsRequest = true;
@@ -97,7 +96,7 @@ var commands = {
 	"audioDescription": 407,
 	"netCast": 408,
 	"energySaving": 409,
-	"avMode": 410,
+	"remote.avMode": 410,
 	"simplink": 411,
 	"remote.exit": 412,
 	"reservationProglist": 413,
@@ -105,6 +104,13 @@ var commands = {
 	"PiP_channelDown": 415,
 	"switchPriSecVideo": 416,
 	"remote.myApps": 417,
+	"remote.Netflix": "Netflix",
+	"remote.Kabel1": "Kabel1",
+	"remote.RTL": "RTL",
+	"remote.RTL2": "RTL2",	
+	"remote.VOX": "VOX",
+	"remote.SAT1": "SAT1",	
+	"remote.Pro7": "Pro7",
 	"states.launch": "states",
 	"MOUSE_MOVE": "HandleTouchMove",
 	"MOUSE_CLICK": "HandleTouchClick",
@@ -119,9 +125,10 @@ var commands = {
 	"INFO_SCREEN":"screen_image",
 	"INFO_3D": "is_3d",
 	"INFO_APPS": "applist_get&type=1&index=1&number=1024",
-	"remote.Netflix": "Netflix",
 	"TERMINATE_APP": "AppTerminate"
 }
+
+
 
 
 function connect()
@@ -445,6 +452,52 @@ function RequestCommand(sessionID, commandKey)
 	req.end(message_request);
 }
 
+function SetTVCannel(Name)
+{
+	adapter.log.info('remote.Channel ' + Name);
+	for (var major = 0; major < 50; major++) {
+		if (Channels[major] == Name) {
+			RequestSessionKey(adapter.config.pairingkey, function (data) 
+			{
+				if(data) { 
+					adapter.log.debug('Starte Kanal ' + Channels[major]);
+					RequestCommand(data,"<name>HandleChannelChange</name><major>" + major + "</major><minor>0</minor><sourceIndex>3</sourceIndex><physicalNum>" + physicalNum[major]+ "</physicalNum></command>");
+				}
+			});
+			break;
+		}
+	}
+}
+
+function SetToTV() {
+	adapter.getState('states.inputSource', function (err, state) {
+		if(state.val == 'terrestrial') {
+			RequestSessionKey(adapter.config.pairingkey, function (data) 
+			{
+				if(data) {
+					RequestCommand(data, "<type>HandleKeyInput</type><value>47</value></command>");
+					for (var j = 0; j < 5; j++) {
+						setTimeout(function() {
+							RequestCommand(data, "<type>HandleKeyInput</type><value>14</value></command>");
+						}, 1000);
+					}
+					setTimeout(function() {
+						RequestCommand(data, "<type>HandleKeyInput</type><value>20</value></command>");
+					}, 2000);
+				}
+			});
+		}
+	});
+}
+
+function oneCmd( cmd, time ) {
+	setTimeout(function() {
+		adapter.log.info('oneCmd ' + cmd);				
+		RequestCommand(data, "<type>HandleKeyInput</type><value>" + cmd + "</value></command>");
+	}, time);
+}
+
+
 function startAdapter(options) {
     options = options || {};
     Object.assign(options,{
@@ -557,6 +610,30 @@ function startAdapter(options) {
 										}						
 									});
 									break;
+								case 'Kabel1':
+									adapter.log.debug('Starte kabel eins ' + Channels[major]);
+									SetTVCannel("kabel eins");
+									break;
+								case 'RTL':
+									adapter.log.debug('Starte RTL ' + Channels[major]);
+									SetTVCannel("RTL");
+									break;
+								case 'RTL2':
+									adapter.log.debug('Starte RTL II' + Channels[major]);
+									SetTVCannel("RTL II");
+									break;
+								case 'SAT1':
+									adapter.log.debug('Starte SAT 1 ' + Channels[major]);
+									SetTVCannel("SAT.1");
+									break;
+								case 'VOX':
+									adapter.log.info('Starte VOX ' + Channels[major]);
+									SetTVCannel("VOX");
+									break;
+								case 'Pro7':
+									adapter.log.debug('Starte ProSieben' + Channels[major]);
+									SetTVCannel("ProSieben");
+									break;
 								default:
 									adapter.log.debug("default: " + commands[id]);
 									RequestCommand(data, "<type>HandleKeyInput</type><value>" + commands[id] + "</value></command>");
@@ -574,7 +651,6 @@ function startAdapter(options) {
 							{
 								if(data) {
 									if(index != 0) {
-										
 										adapter.log.debug('Start App ' + Apps[index] + ' ' + auid[index]);
 										RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
 										AppOldIndex = index;
