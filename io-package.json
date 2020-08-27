@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "lgtv12",
-    "version": "0.0.8",
+    "version": "0.0.10",
     "news": {
+	  "0.0.9": {
+		"de": "Änderungen io-package.json"
+	  },
       "0.0.8": {
         "de": "Änderungen README.md"
       },
@@ -70,6 +73,18 @@
       "native": {}
     },
     {
+      "_id": "remote.avMode",
+      "type": "state",
+      "common": {
+        "name": "AVMode",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true
+      },
+      "native": {}
+    },	
+    {
       "_id": "remote.turnOff",
       "type": "state",
       "common": {
@@ -95,6 +110,90 @@
       },
       "native": {}
     },
+    {
+      "_id": "remote.RTL",
+      "type": "state",
+      "common": {
+        "name": "RTL",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "desc": "RTL starten",
+        "smartName": "RTL"
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.RTL2",
+      "type": "state",
+      "common": {
+        "name": "RTL II",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "desc": "RTL II starten",
+        "smartName": "RTL2"
+      },
+      "native": {}
+    },		
+    {
+      "_id": "remote.Kabel1",
+      "type": "state",
+      "common": {
+        "name": "Kabel eins",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "desc": "Kabel1 starten",
+        "smartName": "Kabel1"
+      },
+      "native": {}
+    },	
+    {
+      "_id": "remote.SAT1",
+      "type": "state",
+      "common": {
+        "name": "SAT.1",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "desc": "SAT 1 starten",
+        "smartName": "SAT1"
+      },
+      "native": {}
+    },	
+    {
+      "_id": "remote.VOX",
+      "type": "state",
+      "common": {
+        "name": "VOX",
+        "role": "button",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "desc": "VOX",
+        "smartName": "VOX"
+      },
+      "native": {}
+    },
+    {
+      "_id": "remote.Pro7",
+      "type": "state",
+      "common": {
+        "name": "ProSieben",
+        "role": "button",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "desc": "ProSieben",
+        "smartName": "Pro7"
+      },
+      "native": {}
+    },		
     {
       "_id": "remote.#0",
       "type": "state",
@@ -316,9 +415,9 @@
       "type": "state",
       "common": {
         "name": "Mute ON/OFF",
-        "role": "button",
+        "role": "media.mute",
         "type": "boolean",
-        "read": false,
+        "read": true,
         "write": true
       },
       "native": {}
@@ -416,8 +515,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-        "desc": "Spiele Player",
-        "smartName": "Spiele Player"
+        "desc": "Player Spiele",
+        "smartName": "Player Spiele"
       },
       "native": {}
     },
@@ -430,8 +529,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-        "desc": "Pause Player",
-        "smartName": "Pause Player"
+        "desc": "Player Pause",
+        "smartName": "Player Pause"
       },
       "native": {}
     },
@@ -444,8 +543,8 @@
         "type": "boolean",
         "read": true,
         "write": true,
-        "desc": "Stop Player",
-        "smartName": "Stop Player"
+        "desc": "Player Stop",
+        "smartName": "Player Stop"
       },
       "native": {}
     },
@@ -466,7 +565,7 @@
       "type": "state",
       "common": {
         "name": "Rewind",
-        "role": "button",
+        "role": "button.reverse",
         "type": "boolean",
         "read": true,
         "write": true
@@ -526,9 +625,9 @@
       "type": "state",
       "common": {
         "name": "Repeat",
-        "role": "button",
+        "role": "media.mode.repeat",
         "type": "boolean",
-        "read": true,
+        "read": false,
         "write": true
       },
       "native": {}
@@ -685,11 +784,11 @@
       "_id": "states.mute",
       "type": "state",
       "common": {
-        "name": "mute",
+        "name": "Mute ON/OFF",
         "type": "boolean",
         "role": "value",
-        "read": true,
-        "write": false
+        "read": false,
+        "write": true
       },
       "native": {}
     },
@@ -699,11 +798,11 @@
       "common": {
         "name": "Current Volume",
         "type": "number",
-        "role": "value",
+        "role": "level.volume",
         "min": 0,
         "max": 100,
         "read": true,
-        "write": false
+        "write": true
       },
       "native": {}
     }
