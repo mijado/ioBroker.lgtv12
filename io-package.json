@@ -50,7 +50,6 @@
         "js-controller": ">=1.4.2"
       }
     ],
-    "installedFrom": "https://github.com/mijado/ioBroker.lgtv12/tarball/82ad1f1d776e7b1c3125010f3e930c73a9cad2f3"
   },
   "native": {
     "ip": "",
