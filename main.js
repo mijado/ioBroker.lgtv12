@@ -110,7 +110,7 @@ var commands = {
 	"remote.RTL2": "RTL2",	
 	"remote.VOX": "VOX",
 	"remote.SAT1": "SAT1",	
-	"remote.Pro7": "Pro7",
+	"remote.PRO7": "PRO7",
 	"states.launch": "states",
 	"MOUSE_MOVE": "HandleTouchMove",
 	"MOUSE_CLICK": "HandleTouchClick",
@@ -601,12 +601,14 @@ function startAdapter(options) {
 												if(Apps[index] == 'Netflix') {
 													adapter.setState('states.applist', {val: Apps[index], ack: true});
 													RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
+													adapter.setState('states.Netflix', {val: true, ack: true});
 												}
 											}
 										} else {
 											adapter.log.debug("Beende Netflix");
 											adapter.setState('states.applist', {val: Apps[0], ack: true});
 											RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[state.val] + "</auid><appname>" + Apps[state.val] + "</appname></command>")
+											adapter.setState('states.Netflix', {val: false, ack: true});
 										}						
 									});
 									break;
@@ -630,7 +632,7 @@ function startAdapter(options) {
 									adapter.log.info('Starte VOX ' + Channels[major]);
 									SetTVCannel("VOX");
 									break;
-								case 'Pro7':
+								case 'PRO7':
 									adapter.log.debug('Starte ProSieben' + Channels[major]);
 									SetTVCannel("ProSieben");
 									break;
@@ -661,6 +663,28 @@ function startAdapter(options) {
 										AppOldIndex = null;
 									}
 								}
+							});
+							break;
+						case 'states.Netflix':
+							adapter.getState('states.applist', function (err, state) {
+								RequestSessionKey(adapter.config.pairingkey, function (data) 
+								{
+									if(data) {
+										if(state.val) {
+											adapter.log.debug("Starte Netflix");
+											for (index = 0; index < Apps.length; ++index) {
+												if(Apps[index] == 'Netflix') {
+													adapter.setState('states.applist', {val: Apps[index], ack: true});
+													RequestCommand(data,"<name>AppExecute</name><auid>" + auid[index] + "</auid><appname>" + Apps[index] + "</appname></command>");
+												}
+											}
+										} else {
+											adapter.log.debug("Beende Netflix");
+											adapter.setState('states.applist', {val: Apps[0], ack: true});
+											RequestCommand(data,"<name>AppTerminate</name><auid>" + auid[state.val] + "</auid><appname>" + Apps[state.val] + "</appname></command>")
+										}						
+									}
+								});
 							});
 							break;
 						case "states.channellist":
