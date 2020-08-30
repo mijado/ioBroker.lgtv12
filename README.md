@@ -61,6 +61,9 @@ EPG
 
 ## Changelog
 
+### 0.0.11
+* kleine Fehlerkorrekturen
+
 ### 0.0.10
 * Umschalten auf Kabel 1, ProSieben, RTL, RTL II, SAT 1, VOX
 

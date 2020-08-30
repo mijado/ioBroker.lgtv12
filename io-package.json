@@ -1,8 +1,14 @@
 {
   "common": {
     "name": "lgtv12",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "news": {
+	  "0.0.11": {
+		"de": "kleine Fehlerkorrekturen"
+	  },
+	  "0.0.10": {
+		"de": "Umschalten auf Kabel 1, ProSieben, RTL, RTL II, SAT 1, VOX"
+	  },
 	  "0.0.9": {
 		"de": "Änderungen io-package.json"
 	  },
