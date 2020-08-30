@@ -183,13 +183,13 @@
       "_id": "remote.Pro7",
       "type": "state",
       "common": {
-        "name": "ProSieben",
+        "name": "Pro7",
         "role": "button",
         "type": "boolean",
         "read": false,
         "write": true,
-        "desc": "ProSieben",
-        "smartName": "Pro7"
+        "desc": "Pro7",
+        "smartName": "PRO7"
       },
       "native": {}
     },		
